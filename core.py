@@ -19,4 +19,8 @@ def run(src_dir, dst_dir):
         makedirs(dst_dir)
     for file in file_names:
         src_dir = path.abspath(src_dir)
-        mklink(path.join(src_dir, file), path.join(dst_dir, file))
+        src = path.join(src_dir, file)
+        if path.isdir(src):
+            run(src, dst_dir)
+        else:
+            mklink(src, path.join(dst_dir, file))
