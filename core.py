@@ -5,7 +5,7 @@ def mklink(src, dst):
     # print (src + " <==> " + dst)
     if path.exists(dst) or path.lexists(dst):
         dst = generate_name(src, dst)
-    symlink(src, dst, target_is_directory=True)
+    symlink(src, dst)
 
 def generate_name(src, dst):
     k = path.splitext(dst)
