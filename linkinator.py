@@ -1,13 +1,19 @@
 #!/usr/bin/env python3
 
 from os import symlink, path, listdir, makedirs
-
+from random import random
 from sys import argv
 
 def mklink(src, dst):
     # print (src + " <==> " + dst)
-    if not path.exists(dst) and not path.lexists(dst):
-        symlink(src, dst, target_is_directory=True)
+    if path.exists(dst) or path.lexists(dst):
+        dst = generate_name(src, dst)
+    symlink(src, dst, target_is_directory=True)
+
+def generate_name(src, dst):
+    k = path.splitext(dst)
+    return k[0] + str(random()) + k[1]
+    
     
 
 def run(src_dir, dst_dir):
