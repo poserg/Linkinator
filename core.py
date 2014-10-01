@@ -1,6 +1,19 @@
 from os import symlink, path, listdir, makedirs
 from random import random
 
+video_ext = [".3gp", 
+             ".avi", 
+             ".mpg", 
+             ".mov", 
+             ".swf", 
+             ".asf", 
+             ".mp4", 
+             ".wmv", 
+             ".mts", 
+             ".mkv", 
+             ".flv",
+             ".m2ts"]
+
 def mklink(src, dst):
     # print (src + " <==> " + dst)
     if path.exists(dst) or path.lexists(dst):
@@ -22,5 +35,5 @@ def run(src_dir, dst_dir):
         src = path.join(src_dir, file)
         if path.isdir(src):
             run(src, dst_dir)
-        else:
+        elif path.splitext(src)[1].lower() in  video_ext:
             mklink(src, path.join(dst_dir, file))
