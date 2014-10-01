@@ -16,15 +16,19 @@ video_ext = [".3gp",
 
 def mklink(src, dst):
     # print (src + " <==> " + dst)
-    if path.exists(dst) or path.lexists(dst):
-        dst = generate_name(src, dst)
+    dst = get_dst_path(dst)
     symlink(src, dst)
 
+def get_dst_path(dst):
+    if path.exists(dst) or path.lexists(dst):
+        t = path.splitext(dst)
+        return get_dst_path(t[0] + "_" + t[1])
+    else:
+        return dst
+    
 def generate_name(src, dst):
     k = path.splitext(dst)
     return k[0] + str(random()) + k[1]
-    
-    
 
 def run(src_dir, dst_dir):
     file_names = []
