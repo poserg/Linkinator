@@ -27,7 +27,11 @@ def generate_name(src, dst):
     
 
 def run(src_dir, dst_dir):
-    file_names = listdir(src_dir)
+    file_names = []
+    try:
+        file_names = listdir(src_dir)
+    except PermissionError:
+        print ("Permission denied: '" + src_dir + "'")
     if not path.exists(dst_dir):
         makedirs(dst_dir)
     for file in file_names:
